@@ -1,0 +1,10 @@
+<ng-container *ngIf="isLogged; then stock; else authen"></ng-container>
+<ng-template #stock >
+  <app-header ></app-header>
+  <app-menu ></app-menu>
+  <router-outlet ></router-outlet>
+  <app-footer ></app-footer>
+</ng-template>
+<ng-template #authen>
+    <router-outlet></router-outlet>
+</ng-template>
