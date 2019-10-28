@@ -1,4 +1,5 @@
-import { Component,Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { NetworkServiceService } from './services/network-service.service';
 
 @Component({
   selector: 'app-root',
@@ -7,9 +8,9 @@ import { Component,Input } from '@angular/core';
 })
 export class AppComponent {
   title = 'cmPOS';
-  
 
-  public get isLogged():boolean{
-    return true;
+  constructor(private networkService: NetworkServiceService) { }
+  public get isLogged(): Boolean {
+    return this.networkService.isLogin();
   }
 }

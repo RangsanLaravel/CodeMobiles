@@ -1,6 +1,8 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-
+import { NetworkServiceService } from 'src/app/services/network-service.service';
+import { environment } from 'src/environments/environment';
+import { from } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -8,19 +10,28 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  
-  constructor(private router:Router) { }
-  
+
+  constructor(private router: Router, private networkService: NetworkServiceService) { }
+
   ngOnInit() {
+    if(this.networkService.isLogin()){
+      this.router.navigate(["/stock"])
+    }
+  }
+  onSubmit(value) {
+    this.networkService.login(value).subscribe(
+      result => {
+        localStorage.setItem(environment.keyLocalAuthenInfo, result.token)
+        this.router.navigate(["stock"]);
+
+      }
+    )
+      ;
+
+
 
   }
-  onSubmit(value){
-    alert(JSON.stringify(value));
-    this.router.navigate(["stock"]);
-    
-    
-  }
-  onClickRegister(){
+  onClickRegister() {
     this.router.navigate(["register"]);
   }
 }
